@@ -158,5 +158,36 @@ def get_available_letters(letters_guessed):
             print("Your total score for this game is :" + str(score))
             break
             
+            def match_with_gaps(my_word, other_word):
+    without_space = my_word.replace(" ", "")
+    
+    for i in range(0, len(without_space.strip())):
+        if len(without_space) != len(other_word):
+            return False
+        if without_space[i] == other_word[i] :
             
+            continue
+        if  without_space[i] == "_":
+            continue
+        else :
+            return False
+    return True
+
+
+
+def show_possible_matches(my_word):
+     words_matched = ""
+     
+     for item in range(len(wordlist)):
+         other_word = wordlist[item]
+         if match_with_gaps(my_word, other_word) == True:
+            words_matched += other_word + " "
+     return words_matched
+         
+     if len(words_matched) < 0:
+             
+          print('No matches found') 
+
+
+         
 

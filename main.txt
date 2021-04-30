@@ -101,4 +101,62 @@ def get_available_letters(letters_guessed):
            a += i 
     return(a)
     
+    def hangman(secret_word):
+    
+    print('Welcome to the game, Hangman!')
+    print('I am thinking of a word that is', len(secret_word), "letters long.")
+    num_guesses = 6
+    warnings = 3
+    
+    letters_guessed = ""
+    
+    while True :
+        score = (num_guesses) * len(set(secret_word))
+        print('------------')
+        print('You have',  num_guesses , 'guesses left.')
+        print('Available letters:', get_available_letters(letters_guessed))
+        guess = input(str("plz guess a letter :"))
+        print(secret_word)     
+        
+    
+        
+        if len(guess) > 1:
+            print ("your length of guess is greater than one plz enter a guess of length 1")
+        if  not guess.isalpha():
+            
+            if warnings > 0:
+                warnings -= 1
+                print('Oops! That is not a valid letter. You have ' + str(warnings) + ' warnings left: ' + get_guessed_word(secret_word, letters_guessed))
+            else:
+                num_guesses -= 1
+                print('Oops! You\'ve already guessed that letter. You now have no warnings left so you lose one guess:' + (get_guessed_word(secret_word, letters_guessed)))
+        else:   
+            guess = guess.lower()
+            if guess in letters_guessed:
+                if warnings  > 0:
+                   warnings = warnings - 1
+                   print("Oops! You've already guessed that letter and you have remaining " + str(warnings) + "warnings left :" + get_guessed_word(secret_word, letters_guessed))
+                else:
+                    num_guesses -=1 
+                    print(("Oops! You've already guessed that letter and you have remaining " + str(num_guesses) +"guesses left :" + get_guessed_word(secret_word, letters_guessed)))
+            else:
+                
+                if guess in secret_word:
+                 letters_guessed += guess
+                 print('Good guess:' + get_guessed_word(secret_word, letters_guessed))
+                else:
+                    if guess in 'aeiou':
+                     num_guesses -= 2
+                    else:
+                     num_guesses -= 1
+                    print('Ops! that letter is not in my secret word:' + get_guessed_word(secret_word, letters_guessed))
+        if num_guesses == 0:
+            print("Sorry , You have ran out of guesses .The word was " + secret_word + ".")
+            break  
+        if is_word_guessed(secret_word, letters_guessed):
+            print("Congratulations! You've won!")
+            print("Your total score for this game is :" + str(score))
+            break
+            
+            
 
